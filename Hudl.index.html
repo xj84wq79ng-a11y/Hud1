@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Watch — Hudl Fan</title>
+  <meta name="description" content="Quick launcher page for a Hudl Fan watch link. Click the big button to open in a new tab if embedding is blocked." />
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#1ea7ff;
+      --muted:#9aa7b6;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#071023 0%, #0f1724 100%);
+      color:#e6eef6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .container{
+      width:100%;
+      max-width:1000px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      overflow:hidden;
+      display:grid;
+      grid-template-rows: auto 1fr auto;
+      gap:0;
+    }
+
+    header{
+      padding:18px 20px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .logo{
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--accent), #6ad1ff);
+      color:#012032;
+      font-weight:700;
+      font-size:16px;
+      box-shadow: 0 6px 14px rgba(30,167,255,0.12), inset 0 -6px 18px rgba(255,255,255,0.03);
+    }
+    h1{margin:0;font-size:16px;letter-spacing:0.2px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    main{
+      position:relative;
+      min-height:420px;
+      background:var(--card);
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .iframe-wrap{
+      flex:1;
+      border-radius:10px;
+      overflow:hidden;
+      background:#000;
+      position:relative;
+      box-shadow: inset 0 2px 12px rgba(0,0,0,0.6);
+    }
+
+    iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+    }
+
+    .toolbar{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:12px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border-top:1px solid rgba(255,255,255,0.02);
+    }
+    .btn{
+      padding:10px 14px;
+      border-radius:10px;
+      border:0;
+      background:linear-gradient(90deg,var(--accent), #6ad1ff);
+      color:#012032;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 6px 14px rgba(30,167,255,0.12);
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      box-shadow:none;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .spacer{flex:1}
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      padding-left:6px;
+    }
+
+    .notice{
+      font-size:13px;
+      color:var(--muted);
+      padding:12px 18px;
+      border-top:1px dashed rgba(255,255,255,0.02);
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.01));
+    }
+
+    .meta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .copy-success{
+      display:inline-block;
+      color:#b8ffd9;
+      font-weight:600;
+      margin-left:8px;
+      font-size:13px;
+    }
+
+    @media (max-width:720px){
+      .container{max-width:760px}
+      header{padding:12px}
+      .logo{width:40px;height:40px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-labelledby="title">
+    <header>
+      <div class="logo" aria-hidden="true">HF</div>
+      <div>
+        <h1 id="title">Hudl — Quick Launcher</h1>
+        <p class="lead">One-click access to the Hudl Fan watch link. Embedding may be blocked by Hudl — use the “Open in new tab” button if video doesn't appear.</p>
+      </div>
+    </header>
+
+    <main>
+      <div class="iframe-wrap" id="iframeWrap" aria-live="polite">
+        <!-- Replace the URL below if you need to point to a different Hudl link -->
+        <iframe id="playerFrame" src="https://fan.hudl.com/_/_/_/organization/_/_/watch?b=QnJvYWRjYXN0MjgzMTI1NQ==" title="Hudl Fan content" allow="autoplay; fullscreen; picture-in-picture" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+
+        <!-- fallback overlay (hidden by default, shown by JS if needed) -->
+        <div id="overlay" style="display:none; position:absolute; inset:0; background:linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.6)); color:white; display:flex; align-items:center; justify-content:center; padding:20px; text-align:center;">
+          <div>
+            <h2 style="margin:0 0 8px;">Embedding blocked</h2>
+            <p style="margin:0 0 12px; color:rgba(255,255,255,0.85)">It looks like this content cannot be embedded on third-party sites. Click the button below to open the Hudl page directly.</p>
+            <button id="openBtn2" class="btn" style="min-width:220px">Open Hudl in new tab</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;">
+          <div class="meta">
+            <strong style="color:#fff">Link:</strong>
+            <span id="urlText" style="font-family:monospace; color:var(--muted);">https://fan.hudl.com/_/_/_/organization/_/_/watch?b=QnJvYWRj...</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button id="openBtn" class="btn">Open in new tab</button>
+            <button id="copyBtn" class="btn ghost">Copy link</button>
+            <span id="copied" class="copy-success" style="display:none">Copied ✓</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="toolbar" aria-hidden="false">
+      <div class="small">Tip: If video doesn't show, your browser or network might block cross-site embeds — using the button opens the original Hudl page.</div>
+      <div class="spacer"></div>
+      <div class="small">Made with ♥</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const hudlUrl = "https://fan.hudl.com/_/_/_/organization/_/_/watch?b=QnJvYWRjYXN0MjgzMTI1NQ==";
+      const iframe = document.getElementById('playerFrame');
+      const overlay = document.getElementById('overlay');
+      const openBtn = document.getElementById('openBtn');
+      const openBtn2 = document.getElementById('openBtn2');
+      const copyBtn = document.getElementById('copyBtn');
+      const copied = document.getElementById('copied');
+      const urlText = document.getElementById('urlText');
+
+      urlText.textContent = hudlUrl.length > 80 ? hudlUrl.slice(0,77) + "..." : hudlUrl;
+
+      openBtn.addEventListener('click', ()=> window.open(hudlUrl,'_blank'));
+      openBtn2.addEventListener('click', ()=> window.open(hudlUrl,'_blank'));
+
+      copyBtn.addEventListener('click', async ()=>{
+        try{
+          await navigator.clipboard.writeText(hudlUrl);
+          copied.style.display = 'inline-block';
+          setTimeout(()=> copied.style.display = 'none', 2200);
+        }catch(e){
+          // fallback
+          const ta = document.createElement('textarea');
+          ta.value = hudlUrl;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); copied.style.display='inline-block'; setTimeout(()=>copied.style.display='none',2200); } catch(e){}
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Attempt to detect common iframe blocking (best-effort).
+      // NOTE: detection is heuristic — many cross-origin iframes will throw when inspected,
+      // so we simply wait a short time, and if the iframe doesn't fire a visible load event or looks empty,
+      // we reveal the fallback overlay so the user can open the original link.
+      let loaded = false;
+      iframe.addEventListener('load', ()=> {
+        // give a small delay for content to settle
+        setTimeout(()=> {
+          loaded = true;
+          // if content blocked by X-Frame-Options you may still see a blank page; leave overlay hidden by default.
+          // Here we try to check iframe's size/content visually; many browsers won't allow reading inner content (cross-origin).
+          // We'll not force-show overlay unless there's a clear problem (very small height or zero contentDocument).
+          try {
+            const h = iframe.getBoundingClientRect().height;
+            if (h < 100) {
+              overlay.style.display = 'flex';
+            }
+          } catch(e) {
+            // ignore cross-origin errors
+          }
+        }, 500);
+      });
+
+      // If load event never fired after X seconds, show the overlay so user can open original link.
+      setTimeout(()=> {
+        if (!loaded) {
+          overlay.style.display = 'flex';
+        }
+      }, 2500);
+
+      // Accessibility: focus open button on keyboard users
+      openBtn.focus();
+    })();
+  </script>
+</body>
+</html>
